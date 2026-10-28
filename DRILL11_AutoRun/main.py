@@ -1,4 +1,9 @@
+import os
+
 from pico2d import *
+
+# 어디서 실행하든 이미지 파일을 찾을 수 있도록 이 파일이 있는 폴더를 작업 폴더로 삼는다
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 from boy import Boy
 from grass import Grass
