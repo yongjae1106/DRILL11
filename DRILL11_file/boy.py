@@ -78,8 +78,9 @@ class AutoRun:
         self.boy = boy
 
     def enter(self, e):
-        # 바라보던 방향으로 출발한다
+        # 바라보던 방향으로 출발하고, 5초 타이머를 시작한다
         self.boy.dir = self.boy.face_dir
+        self.start_time = get_time()
 
     def exit(self, e):
         pass
@@ -93,6 +94,8 @@ class AutoRun:
         elif self.boy.x <= Boy.AUTO_RUN_MIN_X:
             self.boy.x, self.boy.dir = Boy.AUTO_RUN_MIN_X, 1
         self.boy.face_dir = self.boy.dir
+        if get_time() - self.start_time >= 5:
+            self.boy.state_machine.add_event(('TIME_OUT', 0))
 
     def draw(self):
         # 확대해서 그리고, 발이 땅에 붙어 있도록 커진 만큼 위로 올린다
@@ -131,7 +134,7 @@ class Boy:
                 self.SLEEP: {space_down: self.IDLE, right_down: self.RUN, left_down: self.RUN},
                 # 방향키를 하나라도 누르고 있으면 RUN 유지
                 self.RUN: {self.all_dir_keys_released: self.IDLE},
-                self.AUTO_RUN: {},
+                self.AUTO_RUN: {time_out: self.IDLE},
             }
         )
 
