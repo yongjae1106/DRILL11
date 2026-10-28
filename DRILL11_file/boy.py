@@ -1,6 +1,6 @@
 from pico2d import load_image, get_time, SDL_KEYDOWN, SDL_KEYUP, SDLK_LEFT, SDLK_RIGHT
 
-from state_machine import StateMachine, space_down, time_out, right_down, left_down, right_up, left_up
+from state_machine import StateMachine, space_down, time_out, right_down, left_down, right_up, left_up, a_down
 
 
 class Idle:
@@ -108,13 +108,16 @@ class Boy:
         self.IDLE = Idle(self)
         self.SLEEP = Sleep(self)
         self.RUN = Run(self)
+        self.AUTO_RUN = AutoRun(self)
         self.state_machine = StateMachine(
             self.IDLE,
             {
-                self.IDLE: {time_out: self.SLEEP, right_down: self.RUN, left_down: self.RUN},
+                self.IDLE: {time_out: self.SLEEP, right_down: self.RUN, left_down: self.RUN,
+                            a_down: self.AUTO_RUN},
                 self.SLEEP: {space_down: self.IDLE, right_down: self.RUN, left_down: self.RUN},
                 # 방향키를 하나라도 누르고 있으면 RUN 유지
                 self.RUN: {self.all_dir_keys_released: self.IDLE},
+                self.AUTO_RUN: {},
             }
         )
 
