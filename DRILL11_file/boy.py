@@ -72,6 +72,27 @@ class Run:
             self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
 
 
+class AutoRun:
+    # 자동 무적 런 - 키 조작 없이 좌우로 계속 달린다
+    def __init__(self, boy):
+        self.boy = boy
+
+    def enter(self, e):
+        pass
+
+    def exit(self, e):
+        pass
+
+    def do(self):
+        self.boy.frame = (self.boy.frame + 1) % 8
+
+    def draw(self):
+        if self.boy.face_dir == 1:
+            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
+        else:
+            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
+
+
 class Boy:
     SPEED = 10
     MIN_X, MAX_X = 50, 750  # 캐릭터 폭 100 의 절반만큼 화면 안쪽
