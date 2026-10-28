@@ -78,13 +78,16 @@ class AutoRun:
         self.boy = boy
 
     def enter(self, e):
-        pass
+        # 바라보던 방향으로 출발한다
+        self.boy.dir = self.boy.face_dir
 
     def exit(self, e):
         pass
 
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8
+        self.boy.face_dir = self.boy.dir
+        self.boy.x = max(Boy.MIN_X, min(Boy.MAX_X, self.boy.x + self.boy.dir * Boy.AUTO_RUN_SPEED))
 
     def draw(self):
         if self.boy.face_dir == 1:
@@ -95,6 +98,7 @@ class AutoRun:
 
 class Boy:
     SPEED = 10
+    AUTO_RUN_SPEED = SPEED * 2
     MIN_X, MAX_X = 50, 750  # 캐릭터 폭 100 의 절반만큼 화면 안쪽
 
     def __init__(self):
