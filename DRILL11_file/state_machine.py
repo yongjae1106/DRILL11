@@ -31,7 +31,12 @@ class StateMachine:
         # rules: {상태 객체: {판별 함수: 다음 상태 객체}}
         self.cur_state = start_state
         self.rules = rules
+        self.event_q = []
         self.cur_state.enter(('START', 0))
+
+    def add_event(self, e):
+        # 상태 내부(do)에서 발생한 이벤트는 큐에 넣어두고 do 가 끝난 뒤 처리한다
+        self.event_q.append(e)
 
     def handle_event(self, e):
         # 현재 상태의 전이 규칙 중 처음으로 맞는 것 하나만 적용, 맞는 게 없으면 무시
@@ -44,6 +49,8 @@ class StateMachine:
 
     def update(self):
         self.cur_state.do()
+        while self.event_q:
+            self.handle_event(self.event_q.pop(0))
 
     def draw(self):
         self.cur_state.draw()

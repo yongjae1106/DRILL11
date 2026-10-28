@@ -17,7 +17,7 @@ class Idle:
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8
         if get_time() - self.boy.idle_start_time >= 5:
-            self.boy.state_machine.handle_event(('TIME_OUT', 0))
+            self.boy.state_machine.add_event(('TIME_OUT', 0))
 
     def draw(self):
         if self.boy.face_dir == 1:
