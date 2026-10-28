@@ -2,6 +2,27 @@ from pico2d import load_image, get_time, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDL
 from transitions import Machine
 
 
+class Idle:
+    def __init__(self, boy):
+        self.boy = boy
+
+    def enter(self, e):
+        # IDLE 에 들어갈 때마다 5초 타이머를 시작한다
+        self.boy.idle_start_time = get_time()
+
+    def exit(self, e):
+        pass
+
+    def do(self):
+        self.boy.frame = (self.boy.frame + 1) % 8
+
+    def draw(self):
+        if self.boy.face_dir == 1:
+            self.boy.image.clip_draw(self.boy.frame * 100, 300, 100, 100, self.boy.x, self.boy.y)
+        else:
+            self.boy.image.clip_draw(self.boy.frame * 100, 200, 100, 100, self.boy.x, self.boy.y)
+
+
 class Boy:
     # 상태 목록 - IDLE 에 들어갈 때마다 5초 타이머를 시작한다
     states = [
