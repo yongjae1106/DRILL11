@@ -46,6 +46,29 @@ class Sleep:
                                                -3.141592 / 2, '', self.boy.x + 25, self.boy.y - 25, 100, 100)
 
 
+class Run:
+    def __init__(self, boy):
+        self.boy = boy
+
+    def enter(self, e):
+        pass
+
+    def exit(self, e):
+        pass
+
+    def do(self):
+        # 방향(self.boy.dir)은 Boy.handle_event 에서 눌린 키를 보고 정한다
+        self.boy.frame = (self.boy.frame + 1) % 8
+        self.boy.face_dir = self.boy.dir
+        self.boy.x = max(Boy.MIN_X, min(Boy.MAX_X, self.boy.x + self.boy.dir * Boy.SPEED))
+
+    def draw(self):
+        if self.boy.face_dir == 1:
+            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
+        else:
+            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
+
+
 class Boy:
     # 상태 목록 - IDLE 에 들어갈 때마다 5초 타이머를 시작한다
     states = [
