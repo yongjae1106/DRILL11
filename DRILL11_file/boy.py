@@ -86,8 +86,13 @@ class AutoRun:
 
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8
+        self.boy.x += self.boy.dir * Boy.AUTO_RUN_SPEED
+        # 화면 좌우 끝에 닿으면 방향을 바꾼다
+        if self.boy.x >= Boy.MAX_X:
+            self.boy.x, self.boy.dir = Boy.MAX_X, -1
+        elif self.boy.x <= Boy.MIN_X:
+            self.boy.x, self.boy.dir = Boy.MIN_X, 1
         self.boy.face_dir = self.boy.dir
-        self.boy.x = max(Boy.MIN_X, min(Boy.MAX_X, self.boy.x + self.boy.dir * Boy.AUTO_RUN_SPEED))
 
     def draw(self):
         if self.boy.face_dir == 1:
