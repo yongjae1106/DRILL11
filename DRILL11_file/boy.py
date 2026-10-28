@@ -23,6 +23,29 @@ class Idle:
             self.boy.image.clip_draw(self.boy.frame * 100, 200, 100, 100, self.boy.x, self.boy.y)
 
 
+class Sleep:
+    def __init__(self, boy):
+        self.boy = boy
+
+    def enter(self, e):
+        pass
+
+    def exit(self, e):
+        pass
+
+    def do(self):
+        self.boy.frame = (self.boy.frame + 1) % 8
+
+    def draw(self):
+        # IDLE 프레임을 90도 눕혀서 그린다
+        if self.boy.face_dir == 1:
+            self.boy.image.clip_composite_draw(self.boy.frame * 100, 300, 100, 100,
+                                               3.141592 / 2, '', self.boy.x - 25, self.boy.y - 25, 100, 100)
+        else:
+            self.boy.image.clip_composite_draw(self.boy.frame * 100, 200, 100, 100,
+                                               -3.141592 / 2, '', self.boy.x + 25, self.boy.y - 25, 100, 100)
+
+
 class Boy:
     # 상태 목록 - IDLE 에 들어갈 때마다 5초 타이머를 시작한다
     states = [
