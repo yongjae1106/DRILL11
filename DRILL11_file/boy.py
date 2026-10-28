@@ -88,23 +88,28 @@ class AutoRun:
         self.boy.frame = (self.boy.frame + 1) % 8
         self.boy.x += self.boy.dir * Boy.AUTO_RUN_SPEED
         # 화면 좌우 끝에 닿으면 방향을 바꾼다
-        if self.boy.x >= Boy.MAX_X:
-            self.boy.x, self.boy.dir = Boy.MAX_X, -1
-        elif self.boy.x <= Boy.MIN_X:
-            self.boy.x, self.boy.dir = Boy.MIN_X, 1
+        if self.boy.x >= Boy.AUTO_RUN_MAX_X:
+            self.boy.x, self.boy.dir = Boy.AUTO_RUN_MAX_X, -1
+        elif self.boy.x <= Boy.AUTO_RUN_MIN_X:
+            self.boy.x, self.boy.dir = Boy.AUTO_RUN_MIN_X, 1
         self.boy.face_dir = self.boy.dir
 
     def draw(self):
+        # 확대해서 그리고, 발이 땅에 붙어 있도록 커진 만큼 위로 올린다
+        size = 100 * Boy.AUTO_RUN_SCALE
+        y = self.boy.y + (size - 100) // 2
         if self.boy.face_dir == 1:
-            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, y, size, size)
         else:
-            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, y, size, size)
 
 
 class Boy:
     SPEED = 10
     AUTO_RUN_SPEED = SPEED * 2
+    AUTO_RUN_SCALE = 2
     MIN_X, MAX_X = 50, 750  # 캐릭터 폭 100 의 절반만큼 화면 안쪽
+    AUTO_RUN_MIN_X, AUTO_RUN_MAX_X = 50 * AUTO_RUN_SCALE, 800 - 50 * AUTO_RUN_SCALE  # 확대된 폭 기준
 
     def __init__(self):
         self.x, self.y = 400, 90
