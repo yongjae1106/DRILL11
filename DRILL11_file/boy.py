@@ -134,7 +134,8 @@ class Boy:
                 self.SLEEP: {space_down: self.IDLE, right_down: self.RUN, left_down: self.RUN},
                 # 방향키를 하나라도 누르고 있으면 RUN 유지
                 self.RUN: {self.all_dir_keys_released: self.IDLE},
-                self.AUTO_RUN: {time_out: self.IDLE},
+                # 방향키가 눌리면 무적 런을 취소하고 눌린 방향으로 RUN
+                self.AUTO_RUN: {time_out: self.IDLE, right_down: self.RUN, left_down: self.RUN},
             }
         )
 
