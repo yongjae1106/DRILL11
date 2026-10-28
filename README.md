@@ -7,7 +7,7 @@ pico2d 로 만든 소년(Boy) 캐릭터에 **AutoRun(자동 무적 런)** 상태
 
 ```bash
 pip install pico2d
-cd DRILL11_file
+cd DRILL11_AutoRun
 python main.py
 ```
 
@@ -31,19 +31,19 @@ python main.py
 
 ## 상태 다이어그램
 
-![상태 다이어그램](DRILL11_file/state_diagram.png)
+![상태 다이어그램](state_diagram.png)
 
-다이어그램은 `DRILL11_file/make_state_diagram.py` 로 다시 만들 수 있습니다. (Pillow 필요)
+다이어그램은 `DRILL11_AutoRun/make_state_diagram.py` 로 다시 만들 수 있습니다. (Pillow 필요)
 
 ## 파일 구성
 
 ```
-DRILL11_file/
+DRILL11_AutoRun/
 ├── main.py                # 게임 루프
 ├── boy.py                 # Boy 와 상태 클래스(Idle, Sleep, Run, AutoRun)
 ├── state_machine.py       # 이벤트 판별 함수와 StateMachine
 ├── grass.py               # 배경 잔디
-├── state_diagram.png      # 상태 다이어그램
 └── make_state_diagram.py  # 상태 다이어그램 생성 스크립트
+state_diagram.png          # 상태 다이어그램
 PRD.md                     # 구현 계획 문서
 ```

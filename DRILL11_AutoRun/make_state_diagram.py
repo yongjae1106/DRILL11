@@ -1,5 +1,6 @@
 # Boy 상태 다이어그램(state_diagram.png) 생성 스크립트 - 실행: python make_state_diagram.py
 import math
+import os
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -108,4 +109,5 @@ for n in states:
 d.rounded_rectangle([p(40, 820), p(70, 845)], radius=6 * S, fill=NEW_FILL, outline=NEW_LINE, width=3 * S)
 d.text(p(80, 832), '새로 추가한 상태 / 전이', font=desc_font, fill=LABEL, anchor='lm')
 
-img.resize((W, H), Image.LANCZOS).save('state_diagram.png')
+# 저장소 루트(이 스크립트의 상위 폴더)에 저장한다
+img.resize((W, H), Image.LANCZOS).save(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'state_diagram.png'))

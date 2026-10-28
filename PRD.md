@@ -13,7 +13,7 @@
 | **필수** | **AutoRun 상태는 반드시 별도의 클래스로 구현** |
 | **필수** | **상태 다이어그램을 이미지 파일로 저장소에 포함** |
 
-## 2. 현재 코드 분석 (`DRILL11_file/`)
+## 2. 현재 코드 분석 (`DRILL11_AutoRun/`)
 
 - `main.py` : 게임 루프, 이벤트를 `boy.handle_event()` 로 전달
 - `grass.py` : 배경 잔디
@@ -29,12 +29,13 @@
 ### 3.1 구조
 
 ```
-DRILL11_file/
-├── main.py            # 게임 루프 (거의 변경 없음)
+DRILL11_AutoRun/
+├── main.py                # 게임 루프 (거의 변경 없음)
 ├── grass.py
-├── state_machine.py   # [신규] 이벤트 판별 함수 + StateMachine 클래스
-├── boy.py             # Boy + 상태 클래스(Idle, Sleep, Run, AutoRun)
-└── state_diagram.png  # [신규] 상태 다이어그램 (제출물)
+├── state_machine.py       # [신규] 이벤트 판별 함수 + StateMachine 클래스
+├── boy.py                 # Boy + 상태 클래스(Idle, Sleep, Run, AutoRun)
+└── make_state_diagram.py  # [신규] 상태 다이어그램 생성 스크립트
+state_diagram.png          # [신규] 상태 다이어그램 (제출물, 저장소 루트)
 ```
 
 ### 3.2 상태 클래스 인터페이스
